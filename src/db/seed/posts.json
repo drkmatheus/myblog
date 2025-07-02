@@ -1,0 +1,64 @@
+{
+  "posts": [
+    {
+      "id": "a1b2c3d4-e5f6-4789-9abc-def012345678",
+      "title": "X: O Legado do Blue Bomber",
+      "slug": "x-o-legado-do-blue-bomber",
+      "excerpt": "Conheça a história e a evolução de X, o protagonista da série Mega Man X.",
+      "content": "X, criado pelo Dr. Light, é um Reploid com livre arbítrio, destinado a lutar contra Mavericks e proteger a humanidade.",
+      "coverImageUrl": "/images/MegaManX.png",
+      "published": true,
+      "createdAt": "2025-05-15T10:00:00.000Z",
+      "updatedAt": "2025-05-16T14:30:00.000Z",
+      "author": "Dr. Light"
+    },
+    {
+      "id": "b9876543-21dc-40ba-8fed-9876543210ab",
+      "title": "Zero: O Enigma Vermelho",
+      "slug": "zero-o-enigma-vermelho",
+      "excerpt": "Explore o passado misterioso e o poder inigualável de Zero, o Maverick Hunter.",
+      "content": "Zero, criado pelo Dr. Wily, possui um vírus Maverick em seu DNA, mas luta ao lado de X para proteger o mundo.",
+      "coverImageUrl": "/images/Zero_recriado.png",
+      "published": true,
+      "createdAt": "2025-04-22T15:45:00.000Z",
+      "updatedAt": "2025-04-25T09:12:00.000Z",
+      "author": "Dr. Wily"
+    },
+    {
+      "id": "c1234567-89ab-4cde-f012-34567890abcd",
+      "title": "Axl: O Novo Maverick Hunter",
+      "slug": "axl-o-novo-maverick-hunter",
+      "excerpt": "Descubra as habilidades únicas de Axl e sua importância na luta contra os Mavericks.",
+      "content": "Axl, com a capacidade de copiar o DNA de outros Reploids, junta-se a X e Zero para combater novas ameaças.",
+      "coverImageUrl": "/images/Axl.png",
+      "published": true,
+      "createdAt": "2025-06-01T08:20:00.000Z",
+      "updatedAt": "2025-06-03T17:55:00.000Z",
+      "author": "Red Alert"
+    },
+    {
+      "id": "d8765432-10ef-4bca-9def-fedcba987654",
+      "title": "Sigma: O Vilão Icônico",
+      "slug": "sigma-o-vilao-iconico",
+      "excerpt": "Relembre a ascensão de Sigma e seu plano para dominar o mundo com os Mavericks.",
+      "content": "Sigma, o líder dos Mavericks, busca a evolução dos Reploids através da destruição da humanidade, tornando-se o principal antagonista da série.",
+      "coverImageUrl": "/images/Sigma.png",
+      "published": true,
+      "createdAt": "2025-03-10T12:30:00.000Z",
+      "updatedAt": "2025-03-12T21:00:00.000Z",
+      "author": "Vile"
+    },
+    {
+      "id": "e5432109-bacd-4e21-8765-432109876543",
+      "title": "Vile: O Rival Implacável",
+      "slug": "vile-o-rival-implacavel",
+      "excerpt": "Acompanhe a história de Vile, o Maverick que nutre um ódio profundo por X e busca vingança.",
+      "content": "Vile, com seu arsenal de armas e armaduras, é um dos inimigos mais persistentes de X, sempre buscando uma oportunidade para derrotá-lo.",
+      "coverImageUrl": "/images/Vile1.png",
+      "published": true,
+      "createdAt": "2025-04-01T09:00:00.000Z",
+      "updatedAt": "2025-04-03T11:15:00.000Z",
+      "author": "Sigma"
+    }
+  ]
+}

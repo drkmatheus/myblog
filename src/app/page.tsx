@@ -1,19 +1,10 @@
-import clsx from "clsx";
-import Image from "next/image";
+import { Header } from "@/components/Header";
 
 export default function Home() {
+  console.log("Hello de page.tsx");
   return (
-    <div
-      className={clsx(
-        "text-6xl",
-        "text-blue-600",
-        "hover:bg-blue-200",
-        "hover:text-white",
-        "transition",
-        "duration-500"
-      )}
-    >
-      Teste
+    <div>
+      <Header />
     </div>
   );
 }
