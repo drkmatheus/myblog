@@ -3,6 +3,11 @@ import { PostRepository } from "./post-repository";
 import { resolve } from "path";
 import { readFile } from "fs/promises";
 
+// alerta: se importar o json direto, o next tem cache,
+// o que significa que se voce buildar o projeto,
+// nem por um milagre vai salvar um post atualizado ou exclui-lo.
+// acontece por que o next transforma o json numa constante.
+
 const ROOT_DIR = process.cwd();
 const JSON_POSTS_FILE_PATH = resolve(
   ROOT_DIR,
@@ -34,5 +39,3 @@ export class JsonPostRepository implements PostRepository {
     return post;
   }
 }
-
-export const postRepository: PostRepository = new JsonPostRepository();
