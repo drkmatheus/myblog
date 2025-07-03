@@ -2,7 +2,6 @@
 import clsx from "clsx";
 
 export function Header() {
-  console.log("Hello de index.tsx");
   return (
     <h1
       className={clsx(

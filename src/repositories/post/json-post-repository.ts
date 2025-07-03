@@ -17,7 +17,7 @@ const JSON_POSTS_FILE_PATH = resolve(
   "posts.json"
 );
 
-const SIMULATING_LAG = 10000;
+const SIMULATING_LAG = 3000;
 
 export class JsonPostRepository implements PostRepository {
   private async simulateLag() {

@@ -1,10 +1,11 @@
+import { Container } from "@/components/Container";
 import { MyLoader } from "@/components/MyLoader";
 import { PostListing } from "@/components/PostsListing";
 import { Suspense } from "react";
 
 export default async function Home() {
   return (
-    <div>
+    <Container>
       <header>
         <h1 className="text-5xl font-bold text-center py-7">HEADER</h1>
       </header>
@@ -14,6 +15,6 @@ export default async function Home() {
       <footer>
         <p className="text-5xl font-bold text-center py-7">FOOTER</p>
       </footer>
-    </div>
+    </Container>
   );
 }
