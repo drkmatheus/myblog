@@ -1,11 +1,10 @@
 import { Container } from "@/components/Container";
 import { Header } from "@/components/Header";
 import { MyLoader } from "@/components/MyLoader";
+import { PostCoverImage } from "@/components/PostCoverImage";
 import { PostHeading } from "@/components/PostHeading";
 import { PostListing } from "@/components/PostsListing";
 import clsx from "clsx";
-import Image from "next/image";
-import Link from "next/link";
 import { Suspense } from "react";
 
 export default async function Home() {
@@ -15,16 +14,16 @@ export default async function Home() {
       <section
         className={clsx("grid grid-cols-1 gap-8 mb-10", "sm:grid-cols-2 group")}
       >
-        <Link className="w-full h-full overflow-hidden rounded-xl" href="#">
-          <Image
-            className="h-full w-full object-center group-hover:scale-105 transition object-cover"
-            src="/images/MegaManX.png"
-            width={1020}
-            height={960}
-            alt="Megaman X ready to fight"
-            priority
-          />
-        </Link>
+        <PostCoverImage
+          linkProps={{ href: "#" }}
+          imageProps={{
+            width: 1200,
+            height: 680,
+            alt: "Zero",
+            src: "/images/Zero.png",
+            priority: true,
+          }}
+        ></PostCoverImage>
         <div className="flex flex-col gap-5 sm:justify-center">
           <time className="text-slate-600 text-sm/tight" dateTime="2025-07-03">
             03/07/2025 21:00
