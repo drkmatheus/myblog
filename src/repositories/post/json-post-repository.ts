@@ -33,15 +33,15 @@ export class JsonPostRepository implements PostRepository {
     return posts;
   }
 
-  async findAll(): Promise<PostModel[]> {
+  async findAllPublished(): Promise<PostModel[]> {
     await this.simulateLag();
     const posts = await this.readFromDisk();
-    return posts;
+    return posts.filter((post: PostModel) => post.published);
   }
 
   async findById(id: string): Promise<PostModel> {
     await this.simulateLag();
-    const posts = await this.findAll();
+    const posts = await this.findAllPublished();
     const post = posts.find((post) => post.id === id);
 
     if (!post) throw new Error(`Post com id: ${id}, não encontrado`);

@@ -1,10 +1,14 @@
 import clsx from "clsx";
 import { PostCoverImage } from "../PostCoverImage";
 import { PostSummary } from "../PostSummary";
+import { postRepository } from "@/repositories/post";
+import { findAllPublicPosts } from "@/lib/post/queries";
 
-export function FeaturedPost() {
-  const slug = "";
-  const postLink = `/post/${slug}`;
+export async function FeaturedPost() {
+  const posts = await findAllPublicPosts();
+  const post = posts[0];
+
+  const postLink = `/post/${post.slug}`;
   return (
     <section
       className={clsx("grid grid-cols-1 gap-8 mb-10", "sm:grid-cols-2 group")}
@@ -14,17 +18,17 @@ export function FeaturedPost() {
         imageProps={{
           width: 1200,
           height: 680,
-          alt: "Zero",
-          src: "/images/Zero.png",
+          alt: post.title,
+          src: post.coverImageUrl,
           priority: true,
         }}
       />
       <PostSummary
         postLink={postLink}
         postHeading="h1"
-        createdAt="03/07/2025 21:00"
-        excerpt="Conheça a história e a evolução de X, o protagonista da série Mega Man X."
-        title="X: O Legado do Blue Bomber"
+        createdAt={post.createdAt}
+        excerpt={post.excerpt}
+        title={post.title}
       />
     </section>
   );
