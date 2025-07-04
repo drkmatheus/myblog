@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { PostCoverImage } from "../PostCoverImage";
-import { PostHeading } from "../PostHeading";
+import { PostSummary } from "../PostSummary";
 
 export function FeaturedPost() {
   const slug = "";
@@ -18,22 +18,14 @@ export function FeaturedPost() {
           src: "/images/Zero.png",
           priority: true,
         }}
-      ></PostCoverImage>
-      <div className="flex flex-col gap-5 sm:justify-center">
-        <time className="text-slate-600 text-sm/tight" dateTime="2025-07-03">
-          03/07/2025 21:00
-        </time>
-        <PostHeading url="#" as="h1">
-          Título grande pra caramba para esse post em destaque
-        </PostHeading>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum,
-          temporibus molestias laboriosam rem neque tempora laborum consequatur
-          beatae laudantium quas nesciunt. Sed consectetur magni dolores. Nulla
-          rerum sed illo enim!Lorem ipsum dolor sit, amet consectetur
-          adipisicing elit.
-        </p>
-      </div>
+      />
+      <PostSummary
+        postLink={postLink}
+        postHeading="h1"
+        createdAt="03/07/2025 21:00"
+        excerpt="Conheça a história e a evolução de X, o protagonista da série Mega Man X."
+        title="X: O Legado do Blue Bomber"
+      />
     </section>
   );
 }

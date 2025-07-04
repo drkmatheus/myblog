@@ -1,10 +1,6 @@
 import { postRepository } from "@/repositories/post";
 import { PostCoverImage } from "../PostCoverImage";
-import { PostHeading } from "../PostHeading";
-import {
-  formatDatetime,
-  formatRelativeDatetime,
-} from "@/utils/format-datetime";
+import { PostSummary } from "../PostSummary";
 
 // Como aqui tem coisa que pode demorar a renderizar, foi separado do código principal, para usar o Suspense
 // do react para carregar apenas um componente do layout.
@@ -27,19 +23,13 @@ export async function PostListing() {
                 src: post.coverImageUrl,
               }}
             />
-            <div className="flex flex-col gap-5 sm:justify-center">
-              <time
-                className="text-slate-600 text-sm/tight"
-                dateTime={post.createdAt}
-                title={formatRelativeDatetime(post.createdAt)}
-              >
-                {formatDatetime(post.createdAt)}
-              </time>
-              <PostHeading url={postLink} as="h2">
-                {post.title}
-              </PostHeading>
-              <p>{post.excerpt}</p>
-            </div>
+            <PostSummary
+              title={post.title}
+              createdAt={post.createdAt}
+              excerpt={post.excerpt}
+              postLink={postLink}
+              postHeading="h2"
+            />
           </div>
         );
       })}
