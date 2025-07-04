@@ -1,6 +1,7 @@
 import { Container } from "@/components/Container";
 import { Header } from "@/components/Header";
 import { MyLoader } from "@/components/MyLoader";
+import { PostHeading } from "@/components/PostHeading";
 import { PostListing } from "@/components/PostsListing";
 import clsx from "clsx";
 import Image from "next/image";
@@ -28,9 +29,9 @@ export default async function Home() {
           <time className="text-slate-600 text-sm/tight" dateTime="2025-07-03">
             03/07/2025 21:00
           </time>
-          <h1 className="text-3xl/tight font-bold block mb-2 sm:text-4xl">
-            <Link href="#">Lorem ipsum dolor sit amet consectetur.</Link>
-          </h1>
+          <PostHeading url="#" as="h1">
+            Título grande pra caramba para esse post em destaque
+          </PostHeading>
           <p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum,
             temporibus molestias laboriosam rem neque tempora laborum
