@@ -7,8 +7,8 @@ import { Suspense } from "react";
 export default async function Home() {
   return (
     <>
-      <FeaturedPost />
       <Suspense fallback={<MyLoader />}>
+        <FeaturedPost />
         <PostListing />
       </Suspense>
     </>
