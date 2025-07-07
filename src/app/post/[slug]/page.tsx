@@ -1,3 +1,6 @@
+import { findPostBySlug } from "@/lib/post/queries";
+import { notFound } from "next/navigation";
+
 type PostSlugPageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -5,9 +8,19 @@ type PostSlugPageProps = {
 export default async function PostSlugPage({ params }: PostSlugPageProps) {
   const { slug } = await params;
 
+  let post;
+
+  try {
+    post = await findPostBySlug(slug);
+  } catch {
+    post = undefined;
+  }
+
+  if (!post) notFound();
+
   return (
     <div>
-      <h1>Hello World! Hello {slug}!</h1>
+      <h1>{post.content}</h1>
     </div>
   );
 }
