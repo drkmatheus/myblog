@@ -3,7 +3,6 @@ import Image from "next/image";
 import { PostHeading } from "../PostHeading";
 import { PostFormattedDate } from "../PostFormattedDate";
 import clsx from "clsx";
-import Markdown from "react-markdown";
 import { MarkdownRenderer } from "../MarkdownRenderer";
 
 type SinglePostProps = {
