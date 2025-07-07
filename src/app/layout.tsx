@@ -3,6 +3,7 @@ import "./globals.css";
 import React from "react";
 import { Container } from "@/components/Container";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
@@ -23,9 +24,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
         <Container>
           <Header />
           {children}
-          <footer>
-            <p className="text-5xl font-bold text-center py-7">FOOTER</p>
-          </footer>
+          <Footer />
         </Container>
       </body>
     </html>
