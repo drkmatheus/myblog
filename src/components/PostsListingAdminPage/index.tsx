@@ -1,7 +1,5 @@
-import { deletePostsAction } from "@/actions/delete-posts-action";
 import { findAllPosts } from "@/lib/post/queries/admin";
 import clsx from "clsx";
-import { Trash2Icon } from "lucide-react";
 import Link from "next/link";
 import { DeletePostButton } from "../admin/DeletePostButton";
 

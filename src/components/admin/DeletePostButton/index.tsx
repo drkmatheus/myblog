@@ -1,6 +1,8 @@
 "use client";
+import { deletePostsAction } from "@/actions/delete-posts-action";
 import clsx from "clsx";
 import { Trash2Icon } from "lucide-react";
+import { useTransition } from "react";
 
 type DeletePostButtonProps = {
   id: string;
@@ -8,8 +10,13 @@ type DeletePostButtonProps = {
 };
 
 export function DeletePostButton({ id, title }: DeletePostButtonProps) {
-  function handleClick() {
-    alert("Botão clicado " + id);
+  const [isPending, startTransition] = useTransition();
+
+  async function handleClick() {
+    startTransition(async () => {
+      const result = await deletePostsAction(id);
+      alert("Botão clicado " + result);
+    });
   }
 
   return (
@@ -24,11 +31,13 @@ export function DeletePostButton({ id, title }: DeletePostButtonProps) {
         "hover:bg-blue-200",
         "mr-1",
         "cursor-pointer",
-        "hover:text-red-500"
+        "hover:text-red-500",
+        "disabled:text-slate-500 disabled:cursor-not-allowed"
       )}
       aria-label={`Deletar post ${title}`}
       title="Deletar post"
       onClick={handleClick}
+      disabled={isPending}
     >
       <Trash2Icon className="mr-1" /> Deletar
     </button>
