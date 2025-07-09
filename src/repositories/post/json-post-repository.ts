@@ -2,6 +2,7 @@ import { PostModel } from "@/models/post/postModel";
 import { PostRepository } from "./post-repository";
 import { resolve } from "path";
 import { readFile } from "fs/promises";
+import { SIMULATING_LAG } from "@/lib/post/constants";
 
 // alerta: se importar o json direto, o next tem cache,
 // o que significa que se voce buildar o projeto,
@@ -16,8 +17,6 @@ const JSON_POSTS_FILE_PATH = resolve(
   "seed",
   "posts.json"
 );
-
-const SIMULATING_LAG = 3000;
 
 export class JsonPostRepository implements PostRepository {
   private async simulateLag() {
