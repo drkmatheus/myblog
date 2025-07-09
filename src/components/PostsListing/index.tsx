@@ -1,7 +1,7 @@
 import { postRepository } from "@/repositories/post";
 import { PostCoverImage } from "../PostCoverImage";
 import { PostSummary } from "../PostSummary";
-import { findAllPublicPosts } from "@/lib/post/queries";
+import { findAllPublicPosts } from "@/lib/post/queries/public";
 
 // Como aqui tem coisa que pode demorar a renderizar, foi separado do código principal, para usar o Suspense
 // do react para carregar apenas um componente do layout.
