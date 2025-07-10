@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button";
+import { InputText } from "@/components/InputText";
 import clsx from "clsx";
 import { NewspaperIcon } from "lucide-react";
 
@@ -12,16 +13,10 @@ export default async function NewPostPage({ params }: AdminPostIdPageProps) {
   const { id } = await params;
 
   return (
-    <div className="text-xl text-center font-bold flex gap-4 items-center">
-      <h1>Página de criação de posts</h1>
-      <Button variant="default" size="md">
-        <NewspaperIcon />
-        Criar
-      </Button>
-      <Button variant="danger" size="sm">
-        <NewspaperIcon />
-        Criar
-      </Button>
+    <div className="flex flex-col gap-3">
+      <InputText labelText="Digite" placeholder="Digite aqui" />
+      <InputText labelText="Digite" placeholder="Digite aqui" />
+      <InputText disabled labelText="Digite" placeholder="Digite aqui" />
       <Button variant="ghost" size="lg">
         <NewspaperIcon />
         Criar
