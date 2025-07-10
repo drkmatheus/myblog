@@ -1,8 +1,8 @@
+import { ErrorMessage } from "@/components/ErrorMessage";
 import { findAllPosts } from "@/lib/post/queries/admin";
 import clsx from "clsx";
 import Link from "next/link";
-import { DeletePostButton } from "../admin/DeletePostButton";
-import { ErrorMessage } from "../ErrorMessage";
+import { DeletePostButton } from "../DeletePostButton";
 
 export async function PostsListingAdminPage() {
   const posts = await findAllPosts();

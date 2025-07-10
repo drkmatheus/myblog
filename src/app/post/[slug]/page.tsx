@@ -2,7 +2,6 @@ import { MyLoader } from "@/components/MyLoader";
 import { SinglePost } from "@/components/SinglePost";
 import { findPostBySlug } from "@/lib/post/queries/public";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 type PostSlugPageProps = {
