@@ -14,7 +14,7 @@ export default async function NewPostPage({ params }: AdminPostIdPageProps) {
   return (
     <div className="text-xl text-center font-bold">
       <h1>Página de criação de posts</h1>
-      <Button className={clsx("border-2")}>
+      <Button variant="default" size="md">
         <NewspaperIcon />
         Criar
       </Button>
