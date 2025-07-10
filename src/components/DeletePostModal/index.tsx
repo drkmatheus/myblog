@@ -1,5 +1,6 @@
 "use client";
 import clsx from "clsx";
+import { Button } from "../Button";
 
 type DeletePostModalProps = {
   title: string;
@@ -55,47 +56,17 @@ export function DeletePostModal({
           </h3>
           <p id="modal-description">{description}</p>
           <div className="flex items-center justify-around">
-            <button
-              className={clsx(
-                "bg-red-300",
-                "transition",
-                "hover:bg-red-500",
-                "text-slate-950",
-                "px-4",
-                "py-2",
-                "cursor-pointer",
-                "rounded-lg",
-                "flex",
-                "items-center",
-                "justify-center",
-                "disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed"
-              )}
-              onClick={onConfirm}
-              disabled={disabled}
-            >
+            <Button variant="danger" onClick={onConfirm} disabled={disabled}>
               {buttonText1}
-            </button>
-            <button
-              className={clsx(
-                "bg-slate-300",
-                "transition",
-                "hover:bg-slate-400",
-                "text-slate-950",
-                "px-4",
-                "py-2",
-                "cursor-pointer",
-                "rounded-lg",
-                "flex",
-                "items-center",
-                "justify-center",
-                "disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed"
-              )}
+            </Button>
+            <Button
+              variant="ghost"
               autoFocus
               onClick={handleCancel}
               disabled={disabled}
             >
               {buttonText2}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
