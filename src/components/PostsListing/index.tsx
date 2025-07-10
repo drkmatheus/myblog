@@ -1,4 +1,3 @@
-import { postRepository } from "@/repositories/post";
 import { PostCoverImage } from "../PostCoverImage";
 import { PostSummary } from "../PostSummary";
 import { findAllPublicPosts } from "@/lib/post/queries/public";
@@ -8,6 +7,8 @@ import { findAllPublicPosts } from "@/lib/post/queries/public";
 
 export async function PostListing() {
   const posts = await findAllPublicPosts();
+
+  if (posts.length <= 1) return null;
 
   return (
     <div className="grid grid-cols-1 gap-4  sm:grid-cols-2 lg:grid-cols-3">

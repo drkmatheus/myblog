@@ -8,7 +8,7 @@ import { postsTable } from "./schemas";
 
   try {
     // se executar esse arquivo aqui, ele popula o banco de dados
-    //await drizzleDb.delete(postsTable); //deleta tudo da base de dados
+    await drizzleDb.delete(postsTable); //deleta tudo da base de dados
     await drizzleDb.insert(postsTable).values(posts);
   } catch (e) {
     console.log("Ocorreu um erro: " + e);

@@ -1,11 +1,21 @@
 import clsx from "clsx";
 import { PostCoverImage } from "../PostCoverImage";
 import { PostSummary } from "../PostSummary";
-import { postRepository } from "@/repositories/post";
 import { findAllPublicPosts } from "@/lib/post/queries/public";
+import { ErrorMessage } from "../ErrorMessage";
 
 export async function FeaturedPost() {
   const posts = await findAllPublicPosts();
+
+  if (posts.length <= 0) {
+    return (
+      <ErrorMessage
+        contentTitle="Atenção!🐣"
+        content="Nenhum post foi encontrado"
+      />
+    );
+  }
+
   const post = posts[0];
 
   const postLink = `/post/${post.slug}`;
