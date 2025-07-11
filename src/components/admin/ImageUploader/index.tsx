@@ -1,11 +1,13 @@
+import { uploadImageAction } from "@/actions/upload/upload-image-action";
 import { Button } from "@/components/Button";
 import { MAX_IMG_SIZE } from "@/lib/post/constants";
 import { UploadIcon } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useTransition } from "react";
 import { toast } from "react-toastify";
 
 export function ImageUploader() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, startTransition] = useTransition();
 
   function handleChooseFile() {
     if (!fileInputRef.current) return;
@@ -13,6 +15,7 @@ export function ImageUploader() {
   }
 
   function handleChange() {
+    toast.dismiss();
     if (!fileInputRef.current) return;
 
     const fileInput = fileInputRef.current;
@@ -30,9 +33,16 @@ export function ImageUploader() {
     const formData = new FormData();
     formData.append("file", file);
 
-    // Implementar a action server para fazer o upload do arquivo
+    startTransition(async () => {
+      const result = await uploadImageAction(formData);
 
-    console.log(formData.get("file"));
+      if (result.error) {
+        toast.error(result.error);
+        return;
+      }
+
+      toast.success(result.url);
+    });
 
     fileInput.value = "";
   }
