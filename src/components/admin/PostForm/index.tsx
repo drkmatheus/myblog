@@ -5,6 +5,7 @@ import { InputText } from "@/components/InputText";
 import { MarkdownEditorField } from "@/components/MarkdownEditorField";
 import { NewspaperIcon } from "lucide-react";
 import { useState } from "react";
+import { ImageUploader } from "../ImageUploader";
 
 export function PostForm() {
   const [contentValue, setContentValue] = useState("");
@@ -14,6 +15,7 @@ export function PostForm() {
       <div className="flex flex-col gap-3">
         <InputText labelText="Digite" placeholder="Digite aqui" />
         <InputText labelText="Digite" placeholder="Digite aqui" />
+        <ImageUploader />
         <MarkdownEditorField
           labelText="Conteúdo"
           disabled={false}
