@@ -15,9 +15,9 @@ export function Button({
   const buttonVariants: Record<ButtonVariants, string> = {
     default: clsx(
       "border-blue-700",
-      "bg-white",
-      "hover:bg-blue-200",
-      "hover:text-red-500"
+      "text-white",
+      "bg-blue-500",
+      "hover:bg-sky-500"
     ),
     ghost: clsx(
       "bg-slate-300",
