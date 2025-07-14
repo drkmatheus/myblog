@@ -13,9 +13,45 @@ export function PostForm() {
   return (
     <form action="" className="mb-16">
       <div className="flex flex-col gap-3">
-        <InputText labelText="Digite" placeholder="Digite aqui" />
-        <InputText labelText="Digite" placeholder="Digite aqui" />
-        <ImageUploader />
+        <InputText
+          labelText="ID"
+          name="id"
+          type="text"
+          placeholder="ID gerado"
+          readOnly
+          defaultValue={""}
+        />
+        <InputText
+          labelText="Slug"
+          name="Slug"
+          type="text"
+          placeholder="Slug gerado"
+          readOnly
+          defaultValue={""}
+        />
+
+        <InputText
+          labelText="Autor"
+          name="author"
+          type="text"
+          placeholder="Digite o nome do autor"
+          defaultValue={""}
+        />
+
+        <InputText
+          labelText="Título"
+          name="title"
+          type="text"
+          placeholder="Digite o título"
+          defaultValue={""}
+        />
+        <InputText
+          labelText="Excerto"
+          name="excerpt"
+          type="text"
+          placeholder="Digite o excerto"
+          defaultValue={""}
+        />
         <MarkdownEditorField
           labelText="Conteúdo"
           disabled={false}
@@ -23,12 +59,16 @@ export function PostForm() {
           setValue={setContentValue}
           textAreaName="content"
         />
-        <InputText disabled labelText="Digite" placeholder="Digite aqui" />
-        <Button variant="ghost" size="lg">
-          <NewspaperIcon />
-          Criar
-        </Button>
-        <InputCheckbox labeltext="Clique" />
+        <ImageUploader />
+
+        <InputText
+          labelText="URL da imagem de capa"
+          name="coverImageUrl"
+          type="text"
+          placeholder="Digite a URL da imagem de capa"
+          defaultValue={""}
+        />
+        <InputCheckbox labeltext="Publicar?" name="published" type="checkbox" />
       </div>
       <div className="mt-4">
         <Button type="submit">Salvar</Button>

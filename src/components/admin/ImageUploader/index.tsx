@@ -1,8 +1,7 @@
 import { uploadImageAction } from "@/actions/upload/upload-image-action";
 import { Button } from "@/components/Button";
-import { MyLoader } from "@/components/MyLoader";
 import { MAX_IMG_SIZE } from "@/lib/post/constants";
-import { CircleAlertIcon, LoaderPinwheelIcon, UploadIcon } from "lucide-react";
+import { LoaderPinwheelIcon, UploadIcon } from "lucide-react";
 import { useRef, useState, useTransition } from "react";
 import { toast } from "react-toastify";
 

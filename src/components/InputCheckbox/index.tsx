@@ -17,7 +17,7 @@ export function InputCheckbox({
     <div className="flex gap-2 items-center">
       <input
         className={clsx(
-          "h-40 w-40 outline-none focus:ring-2 focus:ring-sky-500",
+          "h-4 w-4 outline-none focus:ring-2 focus:ring-sky-500",
           props.className
         )}
         id={id}
