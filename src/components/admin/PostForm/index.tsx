@@ -3,19 +3,31 @@ import { Button } from "@/components/Button";
 import { InputCheckbox } from "@/components/InputCheckbox";
 import { InputText } from "@/components/InputText";
 import { MarkdownEditorField } from "@/components/MarkdownEditorField";
-import { useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { ImageUploader } from "../ImageUploader";
-import { PostDto } from "@/dto/post/postdto";
+import { partialPostDTO, PostDto } from "@/dto/post/postdto";
+import { createPostAction } from "@/actions/post/create-post-action";
 
 type PostFormProps = {
   postDTO?: PostDto;
 };
 
 export function PostForm({ postDTO }: PostFormProps) {
+  const initialState = {
+    formState: partialPostDTO(postDTO),
+    errors: [],
+  };
+
+  const [state, action, isPending] = useActionState(
+    createPostAction,
+    initialState
+  );
+
+  const { formState } = state;
   const [contentValue, setContentValue] = useState(postDTO?.content || "");
 
   return (
-    <form action="" className="mb-16">
+    <form action={action} className="mb-16">
       <div className="flex flex-col gap-3">
         <InputText
           labelText="ID"
@@ -23,7 +35,7 @@ export function PostForm({ postDTO }: PostFormProps) {
           type="text"
           placeholder="ID gerado"
           readOnly
-          defaultValue={postDTO?.id}
+          defaultValue={formState.id}
         />
         <InputText
           labelText="Slug"
@@ -31,7 +43,7 @@ export function PostForm({ postDTO }: PostFormProps) {
           type="text"
           placeholder="Slug gerado"
           readOnly
-          defaultValue={postDTO?.slug}
+          defaultValue={formState.slug}
         />
 
         <InputText
@@ -39,7 +51,7 @@ export function PostForm({ postDTO }: PostFormProps) {
           name="author"
           type="text"
           placeholder="Digite o nome do autor"
-          defaultValue={postDTO?.author}
+          defaultValue={formState.author}
         />
 
         <InputText
@@ -47,14 +59,14 @@ export function PostForm({ postDTO }: PostFormProps) {
           name="title"
           type="text"
           placeholder="Digite o título"
-          defaultValue={postDTO?.title}
+          defaultValue={formState.title}
         />
         <InputText
           labelText="Excerto"
           name="excerpt"
           type="text"
           placeholder="Digite o excerto"
-          defaultValue={postDTO?.excerpt}
+          defaultValue={formState.excerpt}
         />
         <MarkdownEditorField
           labelText="Conteúdo"
@@ -70,13 +82,13 @@ export function PostForm({ postDTO }: PostFormProps) {
           name="coverImageUrl"
           type="text"
           placeholder="Digite a URL da imagem de capa"
-          defaultValue={postDTO?.coverImageUrl}
+          defaultValue={formState.coverImageUrl}
         />
         <InputCheckbox
           labeltext="Publicar?"
           name="published"
           type="checkbox"
-          defaultChecked={postDTO?.published || false}
+          defaultChecked={formState.published || false}
         />
       </div>
       <div className="mt-4">
