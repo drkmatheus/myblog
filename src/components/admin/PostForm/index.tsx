@@ -3,12 +3,16 @@ import { Button } from "@/components/Button";
 import { InputCheckbox } from "@/components/InputCheckbox";
 import { InputText } from "@/components/InputText";
 import { MarkdownEditorField } from "@/components/MarkdownEditorField";
-import { NewspaperIcon } from "lucide-react";
 import { useState } from "react";
 import { ImageUploader } from "../ImageUploader";
+import { PostDto } from "@/dto/post/postdto";
 
-export function PostForm() {
-  const [contentValue, setContentValue] = useState("");
+type PostFormProps = {
+  postDTO?: PostDto;
+};
+
+export function PostForm({ postDTO }: PostFormProps) {
+  const [contentValue, setContentValue] = useState(postDTO?.content || "");
 
   return (
     <form action="" className="mb-16">
@@ -19,7 +23,7 @@ export function PostForm() {
           type="text"
           placeholder="ID gerado"
           readOnly
-          defaultValue={""}
+          defaultValue={postDTO?.id}
         />
         <InputText
           labelText="Slug"
@@ -27,7 +31,7 @@ export function PostForm() {
           type="text"
           placeholder="Slug gerado"
           readOnly
-          defaultValue={""}
+          defaultValue={postDTO?.slug}
         />
 
         <InputText
@@ -35,7 +39,7 @@ export function PostForm() {
           name="author"
           type="text"
           placeholder="Digite o nome do autor"
-          defaultValue={""}
+          defaultValue={postDTO?.author}
         />
 
         <InputText
@@ -43,14 +47,14 @@ export function PostForm() {
           name="title"
           type="text"
           placeholder="Digite o título"
-          defaultValue={""}
+          defaultValue={postDTO?.title}
         />
         <InputText
           labelText="Excerto"
           name="excerpt"
           type="text"
           placeholder="Digite o excerto"
-          defaultValue={""}
+          defaultValue={postDTO?.excerpt}
         />
         <MarkdownEditorField
           labelText="Conteúdo"
@@ -66,9 +70,14 @@ export function PostForm() {
           name="coverImageUrl"
           type="text"
           placeholder="Digite a URL da imagem de capa"
-          defaultValue={""}
+          defaultValue={postDTO?.coverImageUrl}
         />
-        <InputCheckbox labeltext="Publicar?" name="published" type="checkbox" />
+        <InputCheckbox
+          labeltext="Publicar?"
+          name="published"
+          type="checkbox"
+          defaultChecked={postDTO?.published || false}
+        />
       </div>
       <div className="mt-4">
         <Button type="submit">Salvar</Button>
