@@ -1,10 +1,14 @@
 "use server";
 
+import { drizzleDb } from "@/db/drizzle";
+import { postsTable } from "@/db/drizzle/schemas";
 import { partialPostDTO, PostDto } from "@/dto/post/postdto";
 import { PostCreateSchema } from "@/lib/post/validations";
 import { PostModel } from "@/models/post/postModel";
 import { getZodErrorMessages } from "@/utils/get-zod-errors";
 import { makeSlugs } from "@/utils/make-slugs";
+import { revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 
 type CreatePostActionState = {
@@ -41,8 +45,9 @@ export async function createPostAction(
     id: uuidv4(),
     slug: makeSlugs(validPost.title),
   };
-  return {
-    formState: newPost,
-    errors: [],
-  };
+
+  await drizzleDb.insert(postsTable).values(newPost);
+
+  revalidateTag("posts");
+  redirect(`/admin/post/${newPost.id}`);
 }
