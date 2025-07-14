@@ -7,6 +7,7 @@ import { useActionState, useEffect, useState } from "react";
 import { ImageUploader } from "../ImageUploader";
 import { partialPostDTO, PostDto } from "@/dto/post/postdto";
 import { createPostAction } from "@/actions/post/create-post-action";
+import { toast } from "react-toastify";
 
 type PostFormProps = {
   postDTO?: PostDto;
@@ -22,6 +23,13 @@ export function PostForm({ postDTO }: PostFormProps) {
     createPostAction,
     initialState
   );
+
+  useEffect(() => {
+    toast.dismiss();
+    if (state.errors.length > 0) {
+      state.errors.forEach((error) => toast.error(error));
+    }
+  }, [state.errors]);
 
   const { formState } = state;
   const [contentValue, setContentValue] = useState(postDTO?.content || "");

@@ -1,6 +1,9 @@
 "use server";
 
-import { PostDto } from "@/dto/post/postdto";
+import { partialPostDTO, PostDto } from "@/dto/post/postdto";
+import { PostCreateSchema } from "@/lib/post/validations";
+import { PostModel } from "@/models/post/postModel";
+import { getZodErrorMessages } from "@/utils/get-zod-errors";
 
 type CreatePostActionState = {
   formState: PostDto;
@@ -18,10 +21,26 @@ export async function createPostAction(
     };
 
   const convertFormToObj = Object.fromEntries(formData.entries());
-  console.log(convertFormToObj);
+  const zodParsedObj = PostCreateSchema.safeParse(convertFormToObj);
 
+  if (!zodParsedObj.success) {
+    const errors = getZodErrorMessages(zodParsedObj.error.format());
+    return {
+      formState: partialPostDTO(convertFormToObj),
+      errors,
+    };
+  }
+
+  const validPost = zodParsedObj.data;
+  const newPost: PostModel = {
+    ...validPost,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    id: Date.now().toString(),
+    slug: Math.random().toString(36),
+  };
   return {
-    formState: prevState.formState,
+    formState: newPost,
     errors: [],
   };
 }
