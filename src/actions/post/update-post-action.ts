@@ -5,7 +5,6 @@ import { PostUpdateSchema } from "@/lib/post/validations";
 import { postRepository } from "@/repositories/post";
 import { getZodErrorMessages } from "@/utils/get-zod-errors";
 import { makeRandomString } from "@/utils/make-random-string";
-import { simulateLag } from "@/utils/simulate-lag";
 import { revalidateTag } from "next/cache";
 
 type UpdatePostActionState = {
@@ -18,7 +17,6 @@ export async function updatePostAction(
   prevState: UpdatePostActionState,
   formData: FormData
 ): Promise<UpdatePostActionState> {
-  simulateLag(3000);
   if (!(formData instanceof FormData)) {
     return {
       formState: prevState.formState,

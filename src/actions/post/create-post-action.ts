@@ -6,7 +6,6 @@ import { PostModel } from "@/models/post/postModel";
 import { postRepository } from "@/repositories/post";
 import { getZodErrorMessages } from "@/utils/get-zod-errors";
 import { makeSlugs } from "@/utils/make-slugs";
-import { simulateLag } from "@/utils/simulate-lag";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
@@ -21,7 +20,6 @@ export async function createPostAction(
   prevState: CreatePostActionState,
   formData: FormData
 ): Promise<CreatePostActionState> {
-  simulateLag(3000);
   if (!(formData instanceof FormData))
     return {
       formState: prevState.formState,

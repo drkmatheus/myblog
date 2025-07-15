@@ -1,13 +1,9 @@
 "use server";
 
 import { postRepository } from "@/repositories/post";
-import { logColor } from "@/utils/log-color";
 import { revalidateTag } from "next/cache";
 
 export async function deletePostsAction(id: string) {
-  // await simulateLag(3000);
-  logColor("" + id);
-
   if (!id || typeof id !== "string") {
     return {
       error: "Dados inválidos",

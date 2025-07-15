@@ -5,7 +5,6 @@ import {
   IMG_UPLOAD_DIR,
   MAX_IMG_SIZE,
 } from "@/lib/post/constants";
-import { simulateLag } from "@/utils/simulate-lag";
 import { mkdir, writeFile } from "fs/promises";
 import { extname, resolve } from "path";
 
@@ -19,8 +18,6 @@ export async function uploadImageAction(
 ): Promise<UploadImageActionResult> {
   // tomar muito cuidado com os dados que são colocados aqui
   // não fazer funções helpers e calculos aqui
-
-  await simulateLag(3000, true);
 
   const result = ({ url = "", error = "" }) => {
     return { url, error };
@@ -59,8 +56,6 @@ export async function uploadImageAction(
   writeFile(fullPath, buffer);
 
   const url = `${IMG_SERVER_URL}/${uniqueImageName}`;
-
-  console.log(url);
 
   return result({ url });
 }
