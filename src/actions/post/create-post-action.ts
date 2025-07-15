@@ -1,27 +1,27 @@
 "use server";
 
-import { drizzleDb } from "@/db/drizzle";
-import { postsTable } from "@/db/drizzle/schemas";
 import { partialPostDTO, PostDto } from "@/dto/post/postdto";
 import { PostCreateSchema } from "@/lib/post/validations";
 import { PostModel } from "@/models/post/postModel";
 import { postRepository } from "@/repositories/post";
 import { getZodErrorMessages } from "@/utils/get-zod-errors";
 import { makeSlugs } from "@/utils/make-slugs";
+import { simulateLag } from "@/utils/simulate-lag";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
-import { unknown } from "zod";
 
 type CreatePostActionState = {
   formState: PostDto;
   errors: string[];
+  success?: string;
 };
 
 export async function createPostAction(
   prevState: CreatePostActionState,
   formData: FormData
 ): Promise<CreatePostActionState> {
+  simulateLag(3000);
   if (!(formData instanceof FormData))
     return {
       formState: prevState.formState,
@@ -61,5 +61,5 @@ export async function createPostAction(
   }
 
   revalidateTag("posts");
-  redirect(`/admin/post/${newPost.id}`);
+  redirect(`/admin/post/${newPost.id}?created=1`);
 }

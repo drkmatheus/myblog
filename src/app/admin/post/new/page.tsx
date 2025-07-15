@@ -18,7 +18,7 @@ export default async function NewPostPage({ params }: AdminPostIdPageProps) {
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-xl font-bold">Criar Post</h1>
-      <PostForm />
+      <PostForm mode="create" />
     </div>
   );
 }

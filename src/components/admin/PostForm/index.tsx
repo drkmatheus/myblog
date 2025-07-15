@@ -8,31 +8,72 @@ import { ImageUploader } from "../ImageUploader";
 import { partialPostDTO, PostDto } from "@/dto/post/postdto";
 import { createPostAction } from "@/actions/post/create-post-action";
 import { toast } from "react-toastify";
+import { updatePostAction } from "@/actions/post/update-post-action";
+import { useRouter, useSearchParams } from "next/navigation";
 
-type PostFormProps = {
-  postDTO?: PostDto;
+type PostFormCreateProps = {
+  mode: "create";
 };
 
-export function PostForm({ postDTO }: PostFormProps) {
+type PostFormUpdateProps = {
+  mode: "update";
+  postDTO: PostDto;
+};
+
+type PostFormProps = PostFormUpdateProps | PostFormCreateProps;
+
+export function PostForm(props: PostFormProps) {
+  const { mode } = props;
+  const searchParams = useSearchParams();
+  const created = searchParams.get("created");
+  const router = useRouter();
+
+  let postDto;
+  if (mode === "update") {
+    postDto = props.postDTO;
+  }
+
+  const actionsMap = {
+    update: updatePostAction,
+    create: createPostAction,
+  };
+
   const initialState = {
-    formState: partialPostDTO(postDTO),
+    formState: partialPostDTO(postDto),
     errors: [],
   };
 
   const [state, action, isPending] = useActionState(
-    createPostAction,
+    actionsMap[mode],
     initialState
   );
 
   useEffect(() => {
-    toast.dismiss();
     if (state.errors.length > 0) {
+      toast.dismiss();
       state.errors.forEach((error) => toast.error(error));
     }
   }, [state.errors]);
 
+  useEffect(() => {
+    if (state.success) {
+      toast.dismiss();
+      toast.success("Post atualizado");
+    }
+  }, [state.success]);
+
+  useEffect(() => {
+    if (created === "1") {
+      toast.dismiss();
+      toast.success("Post criado");
+      const url = new URL(window.location.href);
+      url.searchParams.delete("created");
+      router.replace(url.toString());
+    }
+  }, [created, router]);
+
   const { formState } = state;
-  const [contentValue, setContentValue] = useState(postDTO?.content || "");
+  const [contentValue, setContentValue] = useState(postDto?.content || "");
 
   return (
     <form action={action} className="mb-16">
@@ -43,6 +84,7 @@ export function PostForm({ postDTO }: PostFormProps) {
           type="text"
           placeholder="ID gerado"
           readOnly
+          disabled={isPending}
           defaultValue={formState.id}
         />
         <InputText
@@ -51,6 +93,7 @@ export function PostForm({ postDTO }: PostFormProps) {
           type="text"
           placeholder="Slug gerado"
           readOnly
+          disabled={isPending}
           defaultValue={formState.slug}
         />
 
@@ -59,6 +102,7 @@ export function PostForm({ postDTO }: PostFormProps) {
           name="author"
           type="text"
           placeholder="Digite o nome do autor"
+          disabled={isPending}
           defaultValue={formState.author}
         />
 
@@ -67,6 +111,7 @@ export function PostForm({ postDTO }: PostFormProps) {
           name="title"
           type="text"
           placeholder="Digite o título"
+          disabled={isPending}
           defaultValue={formState.title}
         />
         <InputText
@@ -74,33 +119,38 @@ export function PostForm({ postDTO }: PostFormProps) {
           name="excerpt"
           type="text"
           placeholder="Digite o excerto"
+          disabled={isPending}
           defaultValue={formState.excerpt}
         />
         <MarkdownEditorField
           labelText="Conteúdo"
-          disabled={false}
+          disabled={isPending}
           value={contentValue}
           setValue={setContentValue}
           textAreaName="content"
         />
-        <ImageUploader />
+        <ImageUploader disabled={isPending} />
 
         <InputText
           labelText="URL da imagem de capa"
           name="coverImageUrl"
           type="text"
           placeholder="Digite a URL da imagem de capa"
+          disabled={isPending}
           defaultValue={formState.coverImageUrl}
         />
         <InputCheckbox
           labeltext="Publicar?"
           name="published"
           type="checkbox"
+          disabled={isPending}
           defaultChecked={formState.published || false}
         />
       </div>
       <div className="mt-4">
-        <Button type="submit">Salvar</Button>
+        <Button disabled={isPending} type="submit">
+          Salvar
+        </Button>
       </div>
     </form>
   );
