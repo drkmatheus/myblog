@@ -1,6 +1,8 @@
 "use server";
 
+import { checkPassword } from "@/lib/login/manage-login";
 import { simulateLag } from "@/utils/simulate-lag";
+import { error } from "console";
 
 type LoginActionState = {
   username: string;
@@ -9,8 +11,39 @@ type LoginActionState = {
 
 export async function loginAction(state: LoginActionState, formData: FormData) {
   await simulateLag(5000); // para atrasar ataques de força bruta
+
+  if (!(formData instanceof FormData)) {
+    return {
+      username: "",
+      error: "Dados inválidos",
+    };
+  }
+
+  const username = formData.get("username")?.toString().trim() || "";
+  const password = formData.get("password")?.toString().trim() || "";
+
+  if (!username || !password) {
+    return {
+      username,
+      error: "Dados inválidos",
+    };
+  }
+
+  const usernameExiste = username === process.env.LOGIN_USER;
+  const passwordMatch = await checkPassword(
+    password,
+    process.env.LOGIN_PASS || ""
+  );
+
+  if (!usernameExiste || !passwordMatch) {
+    return {
+      username,
+      error: "Usuário ou senha incorretos",
+    };
+  }
+
   return {
-    username: "",
-    error: "",
+    username,
+    error: "Usuario logado",
   };
 }
