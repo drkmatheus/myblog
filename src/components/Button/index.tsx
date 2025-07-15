@@ -47,9 +47,5 @@ export function Button({
     props.className
   );
 
-  return (
-    <div>
-      <button {...props} className={buttonClass} />
-    </div>
-  );
+  return <button {...props} className={buttonClass} />;
 }
