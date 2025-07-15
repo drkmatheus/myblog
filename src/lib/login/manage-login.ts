@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
+import { redirect } from "next/navigation";
 
 type JwtPayload = {
   username: string;
@@ -52,4 +53,39 @@ export async function signJwt(jwtPayload: JwtPayload) {
     .setIssuedAt()
     .setExpirationTime(loginExpirationString)
     .sign(jwtEncodedKey);
+}
+
+export async function verifyJwt(tokenJwt: string | undefined = "") {
+  try {
+    const { payload } = await jwtVerify(tokenJwt, jwtEncodedKey, {
+      algorithms: ["HS256"],
+    });
+    return payload;
+  } catch {
+    console.log("Token inválido");
+    return false;
+  }
+}
+
+export async function getLoginSession() {
+  const cookieStore = await cookies();
+  const jwt = cookieStore.get(loginCookieName)?.value;
+
+  if (!jwt) return false;
+
+  return verifyJwt(jwt);
+}
+
+export async function checkLoginSession() {
+  const jwtPayload = await getLoginSession();
+
+  if (!jwtPayload) return false;
+
+  return jwtPayload?.username === process.env.LOGIN_USER;
+}
+
+export async function requireLoginOrRedirect() {
+  const isAuthenticated = checkLoginSession();
+
+  if (!isAuthenticated) redirect("/admin/login");
 }

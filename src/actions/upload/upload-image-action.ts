@@ -1,5 +1,6 @@
 "use server";
 
+import { checkLoginSession } from "@/lib/login/manage-login";
 import { mkdir, writeFile } from "fs/promises";
 import { extname, resolve } from "path";
 
@@ -17,6 +18,12 @@ export async function uploadImageAction(
   const result = ({ url = "", error = "" }) => {
     return { url, error };
   };
+
+  const isAuthenticated = await checkLoginSession();
+
+  if (!isAuthenticated) {
+    return result({ error: "Faça login novamente" });
+  }
 
   if (!(formData instanceof FormData)) {
     return result({ error: "Dados inválidos" });

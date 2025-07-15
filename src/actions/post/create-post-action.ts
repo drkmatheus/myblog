@@ -1,6 +1,7 @@
 "use server";
 
 import { partialPostDTO, PostDto } from "@/dto/post/postdto";
+import { checkLoginSession } from "@/lib/login/manage-login";
 import { PostCreateSchema } from "@/lib/post/validations";
 import { PostModel } from "@/models/post/postModel";
 import { postRepository } from "@/repositories/post";
@@ -20,6 +21,8 @@ export async function createPostAction(
   prevState: CreatePostActionState,
   formData: FormData
 ): Promise<CreatePostActionState> {
+  const isAuthenticated = await checkLoginSession();
+
   if (!(formData instanceof FormData))
     return {
       formState: prevState.formState,
@@ -28,6 +31,13 @@ export async function createPostAction(
 
   const convertFormToObj = Object.fromEntries(formData.entries());
   const zodParsedObj = PostCreateSchema.safeParse(convertFormToObj);
+
+  if (!isAuthenticated) {
+    return {
+      formState: partialPostDTO(convertFormToObj),
+      errors: ["Faça login em outra aba para poder salvar o formulário"],
+    };
+  }
 
   if (!zodParsedObj.success) {
     const errors = getZodErrorMessages(zodParsedObj.error.format());
