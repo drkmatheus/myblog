@@ -1,8 +1,8 @@
 "use server";
 
-import { checkPassword } from "@/lib/login/manage-login";
+import { checkPassword, createLoginSession } from "@/lib/login/manage-login";
 import { simulateLag } from "@/utils/simulate-lag";
-import { error } from "console";
+import { redirect } from "next/navigation";
 
 type LoginActionState = {
   username: string;
@@ -42,8 +42,6 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
     };
   }
 
-  return {
-    username,
-    error: "Usuario logado",
-  };
+  await createLoginSession(username);
+  redirect("/admin/post");
 }
