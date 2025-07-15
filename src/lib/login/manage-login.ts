@@ -1,5 +1,11 @@
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
+import { SignJWT, jwtVerify } from "jose";
+
+type JwtPayload = {
+  username: string;
+  expiresAt: Date;
+};
 
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
 const jwtEncodedKey = new TextEncoder().encode(jwtSecretKey);
@@ -23,7 +29,7 @@ export async function checkPassword(rawPassword: string, base64Hash: string) {
 
 export async function createLoginSession(username: string) {
   const expiresAt = new Date(Date.now() + loginExpirationSeconds * 1000);
-  const loginSession = username + "Teste";
+  const loginSession = await signJwt({ username, expiresAt });
   const cookieStore = await cookies();
 
   cookieStore.set(loginCookieName, loginSession, {
@@ -38,4 +44,12 @@ export async function deleteLoginSession() {
   const cookieStore = await cookies();
   cookieStore.set(loginCookieName, "", { expires: new Date(0) });
   cookieStore.delete(loginCookieName);
+}
+
+export async function signJwt(jwtPayload: JwtPayload) {
+  return new SignJWT(jwtPayload)
+    .setProtectedHeader({ alg: "HS256", typ: "jwt" })
+    .setIssuedAt()
+    .setExpirationTime(loginExpirationString)
+    .sign(jwtEncodedKey);
 }
