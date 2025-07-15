@@ -1,4 +1,3 @@
-import { SIMULATING_LAG } from "@/lib/post/constants";
 import { logColor } from "./log-color";
 
 export async function simulateLag(millisseconds: number = 0, verbose = false) {

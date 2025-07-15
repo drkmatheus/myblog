@@ -35,7 +35,10 @@ export function ImageUploader({ disabled = false }: ImageUploaderProps) {
       return;
     }
 
-    if (file.size > MAX_IMG_SIZE) {
+    const uploadMaxSize =
+      Number(process.env.NEXT_PUBLIC_IMAGE_UPLOAD_MAX_SIZE) || 921600;
+
+    if (file.size > uploadMaxSize) {
       toast.error("Imagem muito grande. Escolha uma imagem menor que 900KB.");
 
       fileInput.value = "";
