@@ -10,6 +10,15 @@ type LoginActionState = {
 };
 
 export async function loginAction(state: LoginActionState, formData: FormData) {
+  const allowLogin = Boolean(Number(process.env.ALLOW_LOGIN));
+
+  if (!allowLogin) {
+    return {
+      username: "",
+      error: "Login está desativado",
+    };
+  }
+
   await simulateLag(5000); // para atrasar ataques de força bruta
 
   if (!(formData instanceof FormData)) {

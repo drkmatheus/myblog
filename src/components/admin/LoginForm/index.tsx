@@ -3,7 +3,7 @@ import { loginAction } from "@/actions/login/login-action";
 import { Button } from "@/components/Button";
 import { InputText } from "@/components/InputText";
 import clsx from "clsx";
-import { LogInIcon } from "lucide-react";
+import { LoaderPinwheelIcon, LogInIcon } from "lucide-react";
 import { useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
 
@@ -45,7 +45,11 @@ export function LoginForm() {
           disabled={isPending}
         />
         <Button type="submit" className="mt-4" disabled={isPending}>
-          <LogInIcon />
+          {!isPending ? (
+            <LogInIcon />
+          ) : (
+            <LoaderPinwheelIcon className="animate-spin" />
+          )}
           Entrar
         </Button>
         {!!state.error && <p className="text-red-500">{state.error}</p>}
