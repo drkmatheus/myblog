@@ -1,7 +1,10 @@
 "use server";
 
+import { deleteLoginSession } from "@/lib/login/manage-login";
 import { simulateLag } from "@/utils/simulate-lag";
+import { redirect } from "next/navigation";
 
 export async function logoutAction() {
-  await simulateLag(5000); // para atrasar ataques de força bruta
+  await deleteLoginSession();
+  redirect("/");
 }
